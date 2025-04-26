@@ -13,3 +13,31 @@ variable "discord_webhook_url" {
   description = "The Discord webhook URL for alerts"
   type        = string
 }
+
+
+variable "influxdb_url" {
+  description = "The URL for InfluxDB"
+  type        = string
+  default     = "http://influxdb2:8086/"
+}
+
+variable "influxdb_token" {
+  description = "The token for InfluxDB authentication"
+  type        = string
+}
+
+variable "influxdb_username" {
+  description = "The username for InfluxDB authentication"
+  type        = string
+}
+
+variable "influxdb_password" {
+  description = "The password for InfluxDB authentication"
+  type        = string
+}
+
+variable "influxdb_bucket" {
+  description = "The bucket for InfluxDB"
+  type        = string
+  default     = "home"
+}

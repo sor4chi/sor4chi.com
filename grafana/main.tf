@@ -21,3 +21,21 @@ resource "grafana_contact_point" "discord_alert" {
     message = "Alert: {{ .CommonLabels.alertname }}\n\n{{ .Alerts.Firing | len }} firing alerts"
   }
 }
+
+resource "grafana_data_source" "home_influxdb" {
+  name = "Home InfluxDB"
+  type = "influxdb"
+
+  url = var.influxdb_url
+
+  http_headers = {
+    "Authorization" = "Token ${var.influxdb_token}"
+  }
+
+  database_name = var.influxdb_bucket
+  username      = var.influxdb_username
+
+  secure_json_data_encoded = jsonencode({
+    password = var.influxdb_password
+  })
+}
