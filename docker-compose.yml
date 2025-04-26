@@ -14,9 +14,14 @@ services:
   # Monitoring service
   grafana:
     image: grafana/grafana:latest
+    volumes:
+      - grafana-storage:/var/lib/grafana
     networks:
       - home-network
 
 networks:
   home-network:
     driver: bridge
+
+volumes:
+  grafana-storage:
