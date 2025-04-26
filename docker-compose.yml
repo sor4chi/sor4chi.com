@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  # Home Server Proxy for any *.sor4chi.com
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - home-network
+
+  # Monitoring service
+  grafana:
+    image: grafana/grafana:latest
+    networks:
+      - home-network
+
+networks:
+  home-network:
+    driver: bridge
