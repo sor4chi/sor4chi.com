@@ -37,3 +37,9 @@ cd grafana
 terraform init
 terraform apply -var-file=../secrets/grafana.tfvars
 ```
+
+## Optional
+
+### Telegraf
+
+I manage my MacOS server resources with Telegraf with influxdb2 integration.
