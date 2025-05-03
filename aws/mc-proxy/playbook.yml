@@ -1,0 +1,31 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: Install cloudflared
+      shell: |
+        wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64
+        install -m 755 cloudflared-linux-amd64 /usr/local/bin/cloudflared
+
+    - name: Set up systemd service for cloudflared
+      copy:
+        dest: /etc/systemd/system/cloudflared.service
+        content: |
+          [Unit]
+          Description=Cloudflare Tunnel
+          After=network.target
+
+          [Service]
+          ExecStart=/usr/local/bin/cloudflared access tcp --hostname minecraft-internal.sor4chi.com --url 0.0.0.0:25565
+
+          Restart=on-failure
+          RestartSec=5
+
+          [Install]
+          WantedBy=multi-user.target
+
+    - name: Enable and start cloudflared service
+      systemd:
+        name: cloudflared
+        enabled: true
+        state: started
+

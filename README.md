@@ -1,5 +1,7 @@
 # sor4chi.com
 
+[Join Minecraft Server (Vanilla, latest)](./mc-vanilla/README.md)
+
 ## Setup
 
 1. Configure secrets in ./secrets/\*

@@ -1,0 +1,5 @@
+ip.txt
+.terraform
+hosts
+*.tfstate
+*.tfstate.*

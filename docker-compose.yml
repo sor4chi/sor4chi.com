@@ -10,6 +10,12 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     networks:
       - home-network
+    depends_on:
+      grafana:
+        condition: service_started
+      mc-vanilla:
+        condition: service_healthy
+    restart: always
 
   # Monitoring service
   grafana:
@@ -20,6 +26,7 @@ services:
       - home-network
     depends_on:
       - influxdb2
+    restart: always
 
   # InfluxDB2 for storing metrics
   influxdb2:
@@ -46,6 +53,64 @@ services:
         target: /etc/influxdb2
     networks:
       - home-network
+    restart: always
+
+  mc-vanilla:
+    build:
+      context: ./mc-vanilla
+      dockerfile: Dockerfile
+    tty: true
+    stdin_open: true
+    env_file:
+      - ./secrets/.env.mc-vanilla
+    ports:
+      - "25565:25565"
+    volumes:
+      - mc-data:/data
+    networks:
+      - home-network
+    restart: always
+
+  mc-vanilla-restore-backup:
+    image: itzg/mc-backup
+    restart: "no"
+    entrypoint: restore-tar-backup
+    volumes:
+      - mc-data:/data
+      - ./backups/mc-vanilla:/backups:ro
+
+  mv-vanilla-backups:
+    image: itzg/mc-backup
+    depends_on:
+      mc-vanilla:
+        condition: service_healthy
+    environment:
+      BACKUP_INTERVAL: "1d"
+      RCON_HOST: mc-vanilla
+      INITIAL_DELAY: 0
+    volumes:
+      - mc-data:/data:ro
+      - ./backups/mc-vanilla:/backups
+    networks:
+      - home-network
+    restart: always
+
+  mc-vanilla-web:
+    image: itzg/rcon
+    environment:
+      RWA_ADMIN: "TRUE"
+      RWA_RCON_HOST: mc-vanilla
+    ports:
+      - "4326:4326"
+      - "4327:4327"
+    env_file:
+      - ./secrets/.env.mc-vanilla
+    networks:
+      - home-network
+    depends_on:
+      mc-vanilla:
+        condition: service_healthy
+    restart: always
 
 networks:
   home-network:
@@ -63,3 +128,4 @@ volumes:
   grafana-storage:
   influxdb2-data:
   influxdb2-config:
+  mc-data:
