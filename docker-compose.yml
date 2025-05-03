@@ -26,6 +26,7 @@ services:
       - home-network
     depends_on:
       - influxdb2
+      - prometheus
     restart: always
 
   # InfluxDB2 for storing metrics
@@ -54,6 +55,15 @@ services:
     networks:
       - home-network
     restart: always
+
+  # Prometheus for storing metrics
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus/config.yml:/etc/prometheus/prometheus.yml
+      - prometheus-tsdb:/prometheus
+    depends_on:
+      - mc-vanilla-monitor
 
   mc-vanilla:
     build:
@@ -112,6 +122,15 @@ services:
         condition: service_healthy
     restart: always
 
+  mc-vanilla-monitor:
+    image: itzg/mc-monitor
+    command: export-for-prometheus
+    environment:
+      EXPORT_SERVERS: mc-vanilla
+      DEBUG: "true"
+    depends_on:
+      - mc-vanilla
+
 networks:
   home-network:
     driver: bridge
@@ -128,4 +147,5 @@ volumes:
   grafana-storage:
   influxdb2-data:
   influxdb2-config:
+  prometheus-tsdb:
   mc-data:
