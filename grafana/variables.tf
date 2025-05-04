@@ -41,3 +41,9 @@ variable "influxdb_bucket" {
   type        = string
   default     = "home"
 }
+
+variable "prometheus_url" {
+  description = "The URL for Prometheus"
+  type        = string
+  default     = "http://prometheus:9090/"
+}

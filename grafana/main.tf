@@ -39,3 +39,11 @@ resource "grafana_data_source" "home_influxdb" {
     password = var.influxdb_password
   })
 }
+
+resource "grafana_data_source" "home_prometheus" {
+  name = "Home Prometheus"
+  type = "prometheus"
+
+  url = var.prometheus_url
+}
+
