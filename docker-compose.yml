@@ -79,6 +79,12 @@ services:
       - "25565:25565"
     volumes:
       - mc-data:/data
+      - ./mc-vanilla/server.properties:/data/server.properties
+      - ./mc-vanilla/ops.json:/data/ops.json
+      - ./mc-vanilla/whitelist.json:/data/whitelist.json
+      - ./mc-vanilla/banned-players.json:/data/banned-players.json
+      - ./mc-vanilla/banned-ips.json:/data/banned-ips.json
+      - ./mc-vanilla/server-icon.png:/data/server-icon.png
     networks:
       - home-network
     restart: always
