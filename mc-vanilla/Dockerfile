@@ -16,10 +16,10 @@ COPY --chown=1000:1000 ./banned-players.json /data/banned-players.json
 COPY --chown=1000:1000 ./banned-ips.json /data/banned-ips.json
 COPY --chown=1000:1000 ./server-icon.png /data/server-icon.png
 
-# Overwrite mc-vanilla/whitelist.json by fetching it every hour via cron
+# Overwrite mc-vanilla/whitelist.json by fetching it every minute
 RUN apt-get update && \
     apt-get install -y cron && \
-    echo "0 * * * * curl -o /data/whitelist.json https://raw.githubusercontent.com/sor4chi/sor4chi.com/refs/heads/main/mc-vanilla/whitelist.json" >> /etc/crontab && \
+    echo "* * * * * curl -o /data/whitelist.json https://raw.githubusercontent.com/sor4chi/sor4chi.com/refs/heads/main/mc-vanilla/whitelist.json" >> /etc/crontab && \
     chmod 0644 /etc/crontab && \
     crontab /etc/crontab
 
