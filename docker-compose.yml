@@ -64,6 +64,8 @@ services:
       - prometheus-tsdb:/prometheus
     depends_on:
       - mc-vanilla-monitor
+    networks:
+      - home-network
 
   mc-vanilla:
     build:
@@ -88,6 +90,8 @@ services:
     volumes:
       - mc-data:/data
       - ./backups/mc-vanilla:/backups:ro
+    networks:
+      - home-network
 
   mv-vanilla-backups:
     image: itzg/mc-backup
@@ -130,6 +134,8 @@ services:
       DEBUG: "true"
     depends_on:
       - mc-vanilla
+    networks:
+      - home-network
 
 networks:
   home-network:
