@@ -14,3 +14,9 @@ variable "my_ip" {
   description = "You public IP address for temporary access to the instance"
   type        = string
 }
+
+variable "profile" {
+  description = "AWS profile to use"
+  type        = string
+  default     = "default"
+}
