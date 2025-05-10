@@ -81,7 +81,7 @@ resource "aws_security_group" "mc_proxy_sg" {
 
 resource "aws_instance" "mc_proxy" {
   ami           = "ami-026c39f4021df9abe" # Ubuntu 24.04
-  instance_type = "t2.micro"
+  instance_type = "t2.nano"
   key_name      = aws_key_pair.mc_proxy_key.key_name
   subnet_id     = aws_subnet.mc_proxy_subnet.id
   security_groups = [
