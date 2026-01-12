@@ -1,6 +1,6 @@
 # sor4chi.com
 
-[Join Minecraft Server (Vanilla, latest)](./mc-vanilla/README.md)
+Minecraft はこのリポジトリの compose には含めず、`../minecraft/docker-compose.yaml` 側で起動します（`home-network` で本スタックの Prometheus/Grafana と接続）。
 
 ## Setup
 
@@ -17,6 +17,13 @@ openssl rand -base64 32 > ./secrets/.env.influxdb2-admin-token
 
 ```bash
 docker-compose up -d
+```
+
+Minecraft 側も起動する場合:
+
+```bash
+cd ../minecraft
+docker compose up -d
 ```
 
 3. Deploy grafana
