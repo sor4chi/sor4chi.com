@@ -76,6 +76,22 @@ services:
       - home-network
     restart: always
 
+  # Off-site backup of memos data to Cloudflare R2 (restic)
+  memos-backup:
+    build: ./backup
+    env_file:
+      - ./secrets/.env.r2
+    environment:
+      RESTIC_PASSWORD_FILE: /run/secrets/restic-password
+      TZ: Asia/Tokyo
+      BACKUP_CRON: "0 4 * * *"
+    volumes:
+      - memos-data:/data:ro
+      - restic-cache:/root/.cache/restic
+    secrets:
+      - restic-password
+    restart: always
+
 networks:
   home-network:
     name: home-network
@@ -88,6 +104,8 @@ secrets:
     file: ./secrets/.env.influxdb2-admin-password
   influxdb2-admin-token:
     file: ./secrets/.env.influxdb2-admin-token
+  restic-password:
+    file: ./secrets/.env.restic-password
 
 volumes:
   grafana-storage:
@@ -95,3 +113,4 @@ volumes:
   influxdb2-config:
   prometheus-tsdb:
   memos-data:
+  restic-cache:
