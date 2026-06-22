@@ -1,0 +1,23 @@
+name = "memos-caster"
+main = "src/index.ts"
+compatibility_date = "2026-06-17"
+workers_dev = true
+
+# Workers Logs（ダッシュボードでログ閲覧 / wrangler tail）
+[observability.logs]
+enabled = true
+invocation_logs = true
+
+# 非機密の設定。機密（CAST_TOKEN / SLACK_WEBHOOK_URLS / DISCORD_WEBHOOK_URLS）は
+# `wrangler secret put <NAME>` で個別に登録する（このファイルには書かない）。
+[vars]
+MEMOS_PUBLIC_BASE_URL = "https://memos.sor4chi.com"
+CAST_VISIBILITY = "PUBLIC"
+CAST_MAX_CHARS = "1500"
+CAST_DEBUG_RAW = "0"
+
+# 任意: 独自ドメインで公開する場合（DNS が Cloudflare 管理の zone なら）。
+# workers.dev の既定サブドメインでも memos の SSRF チェックは通る。
+# routes = [
+#   { pattern = "cast.sor4chi.com", custom_domain = true },
+# ]

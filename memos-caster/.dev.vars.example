@@ -1,0 +1,6 @@
+# ローカル開発 (wrangler dev) 用のシークレット。.dev.vars にコピーして使う（.dev.vars は gitignore 済み）。
+# 本番のシークレットは `wrangler secret put <NAME>` で Cloudflare に登録する。
+
+CAST_TOKEN=local-dev-token
+SLACK_WEBHOOK_URLS=
+DISCORD_WEBHOOK_URLS=
