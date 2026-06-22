@@ -67,6 +67,15 @@ services:
     networks:
       - home-network
 
+  # Memos - lightweight note taking / memo hub
+  memos:
+    image: neosmemo/memos:stable
+    volumes:
+      - memos-data:/var/opt/memos
+    networks:
+      - home-network
+    restart: always
+
 networks:
   home-network:
     name: home-network
@@ -85,3 +94,4 @@ volumes:
   influxdb2-data:
   influxdb2-config:
   prometheus-tsdb:
+  memos-data:
