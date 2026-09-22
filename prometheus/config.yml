@@ -5,3 +5,8 @@ scrape_configs:
     static_configs:
       - targets:
           - mc-vanilla-monitor:8080
+  - job_name: moneyforward
+    scrape_interval: 1m
+    static_configs:
+      - targets:
+          - mf-exporter:8000

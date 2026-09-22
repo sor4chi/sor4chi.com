@@ -1,0 +1,44 @@
+services:
+  mf-exporter:
+    build:
+      context: .
+    container_name: mf-exporter
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      AUTH_STATE_PATH: /data/auth-state.json
+      ASSET_HISTORY_CACHE_PATH: /data/asset-history.json
+      MONEYFORWARD_HISTORY_MONTHS: ${MONEYFORWARD_HISTORY_MONTHS:-24}
+      MONTHLY_CACHE_PATH: /data/monthly-summaries.json
+      MONEYFORWARD_PASSWORD_FILE: /run/secrets/moneyforward-password
+      MONEYFORWARD_TOTP_SECRET_FILE: /run/secrets/moneyforward-totp-secret
+      MONEYFORWARD_USERNAME_FILE: /run/secrets/moneyforward-username
+      PORT: "8000"
+      SYNC_INTERVAL_SECONDS: ${SYNC_INTERVAL_SECONDS:-86400}
+      SYNC_ON_START: ${SYNC_ON_START:-true}
+    secrets:
+      - moneyforward-password
+      - moneyforward-totp-secret
+      - moneyforward-username
+    volumes:
+      - mf-exporter-state:/data
+    expose:
+      - "8000"
+    networks:
+      - home-network
+
+networks:
+  home-network:
+    external: true
+
+volumes:
+  mf-exporter-state:
+
+secrets:
+  moneyforward-password:
+    file: ../secrets/.env.moneyforward-password
+  moneyforward-totp-secret:
+    file: ../secrets/.env.moneyforward-totp-secret
+  moneyforward-username:
+    file: ../secrets/.env.moneyforward-username
