@@ -1,0 +1,10 @@
+packages:
+  - "."
+
+allowBuilds:
+  esbuild: true
+
+minimumReleaseAge: 10080
+
+overrides:
+  rolldown: 1.2.8

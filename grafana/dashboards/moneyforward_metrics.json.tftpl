@@ -1,0 +1,376 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "links": [],
+  "panels": [
+    {
+      "datasource": { "type": "prometheus", "uid": "${prometheus_uid}" },
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 0, "thresholds": { "mode": "absolute", "steps": [{ "color": "green" }] }, "unit": "locale" }, "overrides": [] },
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 0 },
+      "id": 1,
+      "options": { "colorMode": "value", "graphMode": "none", "justifyMode": "center", "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "auto", "wideLayout": true },
+      "targets": [{ "expr": "moneyforward_net_worth_yen{job=\"moneyforward\"}", "instant": true, "refId": "A" }],
+      "title": "純資産（円）",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${prometheus_uid}" },
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 0, "thresholds": { "mode": "absolute", "steps": [{ "color": "green" }] }, "unit": "locale" }, "overrides": [] },
+      "gridPos": { "h": 4, "w": 6, "x": 6, "y": 0 },
+      "id": 2,
+      "options": { "colorMode": "value", "graphMode": "none", "justifyMode": "center", "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "auto", "wideLayout": true },
+      "targets": [{ "expr": "moneyforward_assets_yen{job=\"moneyforward\"}", "instant": true, "refId": "A" }],
+      "title": "総資産（円）",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${prometheus_uid}" },
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 0, "thresholds": { "mode": "absolute", "steps": [{ "color": "red" }] }, "unit": "locale" }, "overrides": [] },
+      "gridPos": { "h": 4, "w": 6, "x": 12, "y": 0 },
+      "id": 3,
+      "options": { "colorMode": "value", "graphMode": "none", "justifyMode": "center", "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "auto", "wideLayout": true },
+      "targets": [{ "expr": "moneyforward_liabilities_yen{job=\"moneyforward\"}", "instant": true, "refId": "A" }],
+      "title": "総負債（円）",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${prometheus_uid}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [{ "options": { "0": { "color": "red", "text": "要確認" }, "1": { "color": "green", "text": "正常" } }, "type": "value" }],
+          "thresholds": { "mode": "absolute", "steps": [{ "color": "red" }, { "color": "green", "value": 1 }] }
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 4, "w": 6, "x": 18, "y": 0 },
+      "id": 4,
+      "options": { "colorMode": "background", "graphMode": "none", "justifyMode": "center", "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "auto", "wideLayout": true },
+      "targets": [{ "expr": "(moneyforward_exporter_last_sync_success{job=\"moneyforward\"} == bool 1) * ((time() - moneyforward_exporter_last_success_timestamp_seconds{job=\"moneyforward\"}) < bool 93600)", "instant": true, "refId": "A" }],
+      "title": "データ更新（26時間以内）",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${prometheus_uid}" },
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 0, "thresholds": { "mode": "absolute", "steps": [{ "color": "green" }] }, "unit": "locale" }, "overrides": [] },
+      "gridPos": { "h": 5, "w": 6, "x": 0, "y": 4 },
+      "id": 5,
+      "options": { "colorMode": "value", "graphMode": "none", "justifyMode": "center", "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "auto", "wideLayout": true },
+      "targets": [{ "expr": "moneyforward_current_month_income_yen{job=\"moneyforward\"}", "instant": true, "refId": "A" }],
+      "title": "今月の収入（円・途中）",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${prometheus_uid}" },
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 0, "thresholds": { "mode": "absolute", "steps": [{ "color": "orange" }] }, "unit": "locale" }, "overrides": [] },
+      "gridPos": { "h": 5, "w": 6, "x": 6, "y": 4 },
+      "id": 6,
+      "options": { "colorMode": "value", "graphMode": "none", "justifyMode": "center", "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "auto", "wideLayout": true },
+      "targets": [{ "expr": "moneyforward_current_month_expense_yen{job=\"moneyforward\"}", "instant": true, "refId": "A" }],
+      "title": "今月の支出（円・途中）",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${prometheus_uid}" },
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 0, "thresholds": { "mode": "absolute", "steps": [{ "color": "red" }, { "color": "green", "value": 0 }] }, "unit": "locale" }, "overrides": [] },
+      "gridPos": { "h": 5, "w": 6, "x": 12, "y": 4 },
+      "id": 7,
+      "options": { "colorMode": "value", "graphMode": "none", "justifyMode": "center", "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "auto", "wideLayout": true },
+      "targets": [{ "expr": "moneyforward_current_month_balance_yen{job=\"moneyforward\"}", "instant": true, "refId": "A" }],
+      "title": "今月の収支（円・途中）",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${prometheus_uid}" },
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 0, "thresholds": { "mode": "absolute", "steps": [{ "color": "red" }, { "color": "green", "value": 0 }] }, "unit": "locale" }, "overrides": [] },
+      "gridPos": { "h": 5, "w": 6, "x": 18, "y": 4 },
+      "id": 8,
+      "options": { "colorMode": "value", "graphMode": "none", "justifyMode": "center", "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "auto", "wideLayout": true },
+      "targets": [{ "expr": "moneyforward_previous_month_balance_yen{job=\"moneyforward\"}", "instant": true, "refId": "A" }],
+      "title": "先月の収支（円）",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${prometheus_uid}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic-by-name" },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisPlacement": "auto",
+            "drawStyle": "line",
+            "fillOpacity": 65,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 3,
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": { "group": "assets", "mode": "normal" }
+          },
+          "decimals": 0,
+          "unit": "locale"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 9, "w": 16, "x": 0, "y": 9 },
+      "id": 9,
+      "options": {
+        "legend": { "calcs": [], "displayMode": "list", "placement": "bottom", "showLegend": true },
+        "tooltip": { "mode": "multi", "sort": "desc" }
+      },
+      "targets": [{ "expr": "moneyforward_asset_history_category_yen{job=\"moneyforward\"} > 0", "format": "table", "instant": true, "legendFormat": "{{category}}", "refId": "A" }],
+      "transformations": [
+        { "id": "labelsToFields", "options": { "mode": "columns" } },
+        { "id": "convertFieldType", "options": { "conversions": [{ "destinationType": "time", "targetField": "date" }] } },
+        { "id": "groupingToMatrix", "options": { "columnField": "category", "rowField": "date", "valueField": "Value" } },
+        { "id": "sortBy", "options": { "fields": {}, "sort": [{ "desc": false, "field": "date" }] } }
+      ],
+      "title": "資産推移・構成（円）",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${prometheus_uid}" },
+      "description": "入出金を含む資産総額の約1年前比です。運用利回りではありません。",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 0, "thresholds": { "mode": "absolute", "steps": [{ "color": "red" }, { "color": "green", "value": 0 }] }, "unit": "locale" }, "overrides": [] },
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 18 },
+      "id": 13,
+      "options": { "colorMode": "value", "graphMode": "none", "justifyMode": "center", "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "auto", "wideLayout": true },
+      "targets": [{ "expr": "moneyforward_asset_one_year_change_yen{job=\"moneyforward\"}", "instant": true, "refId": "A" }],
+      "title": "1年前比（円）",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${prometheus_uid}" },
+      "description": "入出金を含む資産総額の約1年前比です。運用利回りではありません。",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 1, "thresholds": { "mode": "absolute", "steps": [{ "color": "red" }, { "color": "green", "value": 0 }] }, "unit": "percent" }, "overrides": [] },
+      "gridPos": { "h": 4, "w": 6, "x": 6, "y": 18 },
+      "id": 14,
+      "options": { "colorMode": "value", "graphMode": "none", "justifyMode": "center", "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "auto", "wideLayout": true },
+      "targets": [{ "expr": "moneyforward_asset_one_year_change_percent{job=\"moneyforward\"}", "instant": true, "refId": "A" }],
+      "title": "1年前比（%）",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${prometheus_uid}" },
+      "description": "直近90日の資産総額を線形回帰し、1年分へ換算した単純トレンドです。入出金を含み、期待利回りではありません。",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 0, "thresholds": { "mode": "absolute", "steps": [{ "color": "red" }, { "color": "green", "value": 0 }] }, "unit": "locale" }, "overrides": [] },
+      "gridPos": { "h": 4, "w": 6, "x": 12, "y": 18 },
+      "id": 15,
+      "options": { "colorMode": "value", "graphMode": "none", "justifyMode": "center", "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "auto", "wideLayout": true },
+      "targets": [{ "expr": "moneyforward_asset_90d_trend_annualized_yen{job=\"moneyforward\"}", "instant": true, "refId": "A" }],
+      "title": "直近90日ペース・年換算（円）",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${prometheus_uid}" },
+      "description": "直近90日の資産総額を線形回帰して1年先へ外挿した参考値です。相場予測や期待利回りではありません。",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 0, "thresholds": { "mode": "absolute", "steps": [{ "color": "blue" }] }, "unit": "locale" }, "overrides": [] },
+      "gridPos": { "h": 4, "w": 6, "x": 18, "y": 18 },
+      "id": 16,
+      "options": { "colorMode": "value", "graphMode": "none", "justifyMode": "center", "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "auto", "wideLayout": true },
+      "targets": [{ "expr": "moneyforward_asset_90d_projection_one_year_yen{job=\"moneyforward\"}", "instant": true, "refId": "A" }],
+      "title": "1年先の単純外挿（円・参考）",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${prometheus_uid}" },
+      "fieldConfig": { "defaults": { "color": { "mode": "palette-classic-by-name" }, "decimals": 0, "unit": "locale" }, "overrides": [] },
+      "gridPos": { "h": 9, "w": 8, "x": 16, "y": 9 },
+      "id": 10,
+      "options": { "displayLabels": ["name", "percent"], "legend": { "displayMode": "list", "placement": "right", "showLegend": true, "values": ["percent"] }, "pieType": "donut", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "tooltip": { "hideZeros": true, "mode": "single", "sort": "desc" } },
+      "targets": [{ "expr": "moneyforward_asset_category_yen{job=\"moneyforward\"} > 0", "instant": true, "legendFormat": "{{category}}", "refId": "A" }],
+      "title": "資産配分",
+      "type": "piechart"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${prometheus_uid}" },
+      "fieldConfig": { "defaults": { "color": { "fixedColor": "blue", "mode": "fixed" }, "decimals": 0, "unit": "locale" }, "overrides": [] },
+      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 22 },
+      "id": 11,
+      "options": { "displayMode": "gradient", "minVizHeight": 12, "minVizWidth": 0, "namePlacement": "left", "orientation": "horizontal", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "showUnfilled": true, "sizing": "auto", "valueMode": "text" },
+      "targets": [{ "expr": "sort_desc(moneyforward_portfolio_balance_yen{job=\"moneyforward\"} > 0)", "instant": true, "legendFormat": "{{type}} / {{name}}", "refId": "A" }],
+      "title": "保有資産ポートフォリオ（円）",
+      "type": "bargauge"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${prometheus_uid}" },
+      "description": "収入元（赤字月は資産取崩）からPoolを通り、支出・投資カテゴリと貯蓄へ流れる月次キャッシュフローです。Pool内の用途配賦は月間構成比です。",
+      "fieldConfig": { "defaults": { "decimals": 0, "unit": "locale" }, "overrides": [] },
+      "gridPos": { "h": 10, "w": 16, "x": 0, "y": 32 },
+      "id": 17,
+      "options": { "linkColor": "multi", "nodePadding": 12, "nodeWidth": 18 },
+      "targets": [{ "expr": "moneyforward_monthly_cashflow_link_yen{job=\"moneyforward\",month=\"$month\"} > 0", "format": "table", "instant": true, "refId": "A" }],
+      "transformations": [
+        { "id": "labelsToFields", "options": { "mode": "columns" } },
+        { "id": "organize", "options": { "excludeByName": { "Time": true, "__name__": true, "instance": true, "job": true, "month": true }, "indexByName": { "source": 0, "pool": 1, "destination": 2, "Value": 3 }, "renameByName": { "Value": "金額", "destination": "用途", "pool": "Pool", "source": "収入元" } } }
+      ],
+      "title": "月次キャッシュフロー（$month）",
+      "type": "netsage-sankey-panel"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${prometheus_uid}" },
+      "fieldConfig": { "defaults": { "color": { "fixedColor": "orange", "mode": "fixed" }, "decimals": 0, "unit": "locale" }, "overrides": [] },
+      "gridPos": { "h": 10, "w": 8, "x": 16, "y": 32 },
+      "id": 18,
+      "options": { "displayMode": "gradient", "minVizHeight": 16, "minVizWidth": 0, "namePlacement": "left", "orientation": "horizontal", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "showUnfilled": true, "sizing": "auto", "valueMode": "text" },
+      "targets": [{ "expr": "sort_desc(moneyforward_monthly_expense_category_yen{job=\"moneyforward\",month=\"$month\"} > 0)", "instant": true, "legendFormat": "{{category}}", "refId": "A" }],
+      "title": "カテゴリ別支出（円・$month）",
+      "type": "bargauge"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${prometheus_uid}" },
+      "description": "収入、生活支出、証券口座向け振替、投資後に残る現金余剰を月ごとに比較します。",
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic-by-name" },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "drawStyle": "line",
+            "fillOpacity": 12,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": { "group": "A", "mode": "none" }
+          },
+          "decimals": 0,
+          "unit": "locale"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 9, "w": 24, "x": 0, "y": 42 },
+      "id": 19,
+      "options": {
+        "legend": { "calcs": [], "displayMode": "list", "placement": "bottom", "showLegend": true },
+        "tooltip": { "mode": "multi", "sort": "desc" }
+      },
+      "targets": [{ "expr": "moneyforward_monthly_flow_yen{job=\"moneyforward\"}", "format": "table", "instant": true, "refId": "A" }],
+      "transformations": [
+        { "id": "labelsToFields", "options": { "mode": "columns" } },
+        { "id": "convertFieldType", "options": { "conversions": [{ "destinationType": "time", "targetField": "month" }] } },
+        { "id": "groupingToMatrix", "options": { "columnField": "kind", "rowField": "month", "valueField": "Value" } },
+        { "id": "sortBy", "options": { "fields": {}, "sort": [{ "desc": false, "field": "month" }] } }
+      ],
+      "title": "月次キャッシュフロー推移（24か月）",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${prometheus_uid}" },
+      "description": "対象月から比較月を引いた収入差です。プラスは収入増です。",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 0, "thresholds": { "mode": "absolute", "steps": [{ "color": "red" }, { "color": "green", "value": 0 }] }, "unit": "locale" }, "overrides": [] },
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 51 },
+      "id": 20,
+      "options": { "colorMode": "value", "graphMode": "area", "justifyMode": "center", "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "auto", "wideLayout": true },
+      "targets": [{ "expr": "moneyforward_monthly_income_yen{job=\"moneyforward\",month=\"$month\"} - ignoring(month) moneyforward_monthly_income_yen{job=\"moneyforward\",month=\"$compare_month\"}", "instant": true, "refId": "A" }],
+      "title": "収入差（対象 − 比較）",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${prometheus_uid}" },
+      "description": "対象月から比較月を引いた生活支出差です。プラスは支出増です。",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 0, "thresholds": { "mode": "absolute", "steps": [{ "color": "green" }, { "color": "red", "value": 1 }] }, "unit": "locale" }, "overrides": [] },
+      "gridPos": { "h": 4, "w": 6, "x": 6, "y": 51 },
+      "id": 21,
+      "options": { "colorMode": "value", "graphMode": "area", "justifyMode": "center", "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "auto", "wideLayout": true },
+      "targets": [{ "expr": "moneyforward_monthly_expense_yen{job=\"moneyforward\",month=\"$month\"} - ignoring(month) moneyforward_monthly_expense_yen{job=\"moneyforward\",month=\"$compare_month\"}", "instant": true, "refId": "A" }],
+      "title": "生活支出差（対象 − 比較）",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${prometheus_uid}" },
+      "description": "対象月から比較月を引いた証券口座等への振替差です。支出ではなく資産内の移動です。",
+      "fieldConfig": { "defaults": { "color": { "fixedColor": "orange", "mode": "fixed" }, "decimals": 0, "unit": "locale" }, "overrides": [] },
+      "gridPos": { "h": 4, "w": 6, "x": 12, "y": 51 },
+      "id": 22,
+      "options": { "colorMode": "value", "graphMode": "area", "justifyMode": "center", "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "auto", "wideLayout": true },
+      "targets": [{ "expr": "moneyforward_monthly_investment_transfer_total_yen{job=\"moneyforward\",month=\"$month\"} - ignoring(month) moneyforward_monthly_investment_transfer_total_yen{job=\"moneyforward\",month=\"$compare_month\"}", "instant": true, "refId": "A" }],
+      "title": "投資振替差（対象 − 比較）",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${prometheus_uid}" },
+      "description": "収入 − 生活支出 − 投資振替で残る現金余剰の差です。マイナスなら、対象月は比較月より現金を残せていません。",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 0, "thresholds": { "mode": "absolute", "steps": [{ "color": "red" }, { "color": "green", "value": 0 }] }, "unit": "locale" }, "overrides": [] },
+      "gridPos": { "h": 4, "w": 6, "x": 18, "y": 51 },
+      "id": 23,
+      "options": { "colorMode": "value", "graphMode": "area", "justifyMode": "center", "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "auto", "wideLayout": true },
+      "targets": [{ "expr": "moneyforward_monthly_cash_savings_yen{job=\"moneyforward\",month=\"$month\"} - ignoring(month) moneyforward_monthly_cash_savings_yen{job=\"moneyforward\",month=\"$compare_month\"}", "instant": true, "refId": "A" }],
+      "title": "現金余剰差（対象 − 比較）",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${prometheus_uid}" },
+      "description": "生活支出のカテゴリ別増減です。プラス（赤）が現金余剰を減らした要因、マイナス（緑）が改善要因です。",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 0, "thresholds": { "mode": "absolute", "steps": [{ "color": "green" }, { "color": "red", "value": 1 }] }, "unit": "locale" }, "overrides": [] },
+      "gridPos": { "h": 10, "w": 12, "x": 0, "y": 55 },
+      "id": 24,
+      "options": { "displayMode": "gradient", "minVizHeight": 16, "minVizWidth": 0, "namePlacement": "left", "orientation": "horizontal", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "showUnfilled": false, "sizing": "auto", "valueMode": "text" },
+      "targets": [{ "expr": "sort_desc((moneyforward_monthly_expense_category_yen{job=\"moneyforward\",month=\"$month\"} - ignoring(month) moneyforward_monthly_expense_category_yen{job=\"moneyforward\",month=\"$compare_month\"}) != 0)", "instant": true, "legendFormat": "{{category}}", "refId": "A" }],
+      "title": "支出カテゴリ増減（$month − $compare_month）",
+      "type": "bargauge"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${prometheus_uid}" },
+      "description": "収入元別の増減です。プラス（緑）が現金余剰を増やす要因、マイナス（赤）が悪化要因です。",
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "decimals": 0, "thresholds": { "mode": "absolute", "steps": [{ "color": "red" }, { "color": "green", "value": 0 }] }, "unit": "locale" }, "overrides": [] },
+      "gridPos": { "h": 10, "w": 12, "x": 12, "y": 55 },
+      "id": 25,
+      "options": { "displayMode": "gradient", "minVizHeight": 16, "minVizWidth": 0, "namePlacement": "left", "orientation": "horizontal", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "showUnfilled": false, "sizing": "auto", "valueMode": "text" },
+      "targets": [{ "expr": "sort_desc((moneyforward_monthly_income_source_yen{job=\"moneyforward\",month=\"$month\"} - ignoring(month) moneyforward_monthly_income_source_yen{job=\"moneyforward\",month=\"$compare_month\"}) != 0)", "instant": true, "legendFormat": "{{source}}", "refId": "A" }],
+      "title": "収入元増減（$month − $compare_month）",
+      "type": "bargauge"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${prometheus_uid}" },
+      "fieldConfig": { "defaults": { "decimals": 0, "unit": "s" }, "overrides": [] },
+      "gridPos": { "h": 3, "w": 24, "x": 0, "y": 65 },
+      "id": 12,
+      "options": { "colorMode": "none", "graphMode": "none", "justifyMode": "center", "orientation": "horizontal", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "value_and_name", "wideLayout": true },
+      "targets": [{ "expr": "time() - moneyforward_exporter_last_success_timestamp_seconds{job=\"moneyforward\"}", "instant": true, "legendFormat": "最終成功から", "refId": "A" }],
+      "title": "同期情報",
+      "type": "stat"
+    }
+  ],
+  "refresh": "5m",
+  "schemaVersion": 41,
+  "tags": ["moneyforward", "personal-finance"],
+  "templating": {
+    "list": [
+      {
+        "datasource": { "type": "prometheus", "uid": "${prometheus_uid}" },
+        "definition": "label_values(moneyforward_monthly_expense_category_yen, month)",
+        "hide": 0,
+        "label": "対象月",
+        "name": "month",
+        "query": { "query": "label_values(moneyforward_monthly_expense_category_yen, month)", "refId": "StandardVariableQuery" },
+        "refresh": 1,
+        "sort": 2,
+        "type": "query"
+      },
+      {
+        "datasource": { "type": "prometheus", "uid": "${prometheus_uid}" },
+        "definition": "label_values(moneyforward_monthly_expense_category_yen, month)",
+        "hide": 0,
+        "label": "比較月",
+        "name": "compare_month",
+        "query": { "query": "label_values(moneyforward_monthly_expense_category_yen, month)", "refId": "StandardVariableQuery" },
+        "refresh": 1,
+        "sort": 2,
+        "type": "query"
+      }
+    ]
+  },
+  "time": { "from": "now-1y", "to": "now" },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Money Forward",
+  "uid": "moneyforward",
+  "version": 1
+}

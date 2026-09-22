@@ -18,6 +18,8 @@ services:
   # Monitoring service
   grafana:
     image: grafana/grafana:latest
+    environment:
+      GF_INSTALL_PLUGINS: netsage-sankey-panel
     volumes:
       - grafana-storage:/var/lib/grafana
     networks:
