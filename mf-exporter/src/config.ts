@@ -46,7 +46,7 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
     syncOnStart: parseBoolean(env.SYNC_ON_START, true),
     authStatePath: env.AUTH_STATE_PATH?.trim() || "/data/auth-state.json",
     assetHistoryCachePath: env.ASSET_HISTORY_CACHE_PATH?.trim() || "/data/asset-history.json",
-    monthlyCachePath: env.MONTHLY_CACHE_PATH?.trim() || "/data/monthly-summaries-v2.json",
+    monthlyCachePath: env.MONTHLY_CACHE_PATH?.trim() || "/data/monthly-summaries.json",
     historyMonths,
   };
 }

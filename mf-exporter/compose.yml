@@ -10,7 +10,7 @@ services:
       AUTH_STATE_PATH: /data/auth-state.json
       ASSET_HISTORY_CACHE_PATH: /data/asset-history.json
       MONEYFORWARD_HISTORY_MONTHS: ${MONEYFORWARD_HISTORY_MONTHS:-24}
-      MONTHLY_CACHE_PATH: /data/monthly-summaries-v3.json
+      MONTHLY_CACHE_PATH: /data/monthly-summaries.json
       MONEYFORWARD_PASSWORD_FILE: /run/secrets/moneyforward-password
       MONEYFORWARD_TOTP_SECRET_FILE: /run/secrets/moneyforward-totp-secret
       MONEYFORWARD_USERNAME_FILE: /run/secrets/moneyforward-username
